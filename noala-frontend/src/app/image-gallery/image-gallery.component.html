@@ -26,9 +26,20 @@
 </div>
 
 <div style="margin-top: 50px; text-align: center">
-  <button mat-button color="primary" (click)="loadImages()" *ngIf="!isLoadingFavorites">Reload</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="loadImages()"
+    *ngIf="!isLoadingFavorites"
+  >
+    Reload
+  </button>
 
-  <a routerLink="" [queryParams]="{ favorite: 'true' }" *ngIf="!isLoadingFavorites">
+  <a
+    routerLink=""
+    [queryParams]="{ favorite: 'true' }"
+    *ngIf="!isLoadingFavorites"
+  >
     See your favorite dogs
   </a>
   <a routerLink="" *ngIf="isLoadingFavorites"> See random dogs </a>
