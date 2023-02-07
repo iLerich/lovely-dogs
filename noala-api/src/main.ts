@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-// import session from 'express-session';
-import * as session from 'express-session';
+import session from 'express-session';
+// import * as session from 'express-session';
 import { AppModule } from './app.module';
 // core
 import { createWriteStream } from 'fs';
