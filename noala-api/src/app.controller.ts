@@ -22,7 +22,7 @@ export class AppController {
 
   @Get()
   async getImages(@Query() query: GetImagesQueryDto) {
-    if (query.favorites.toString() === 'true') {
+    if (String(query.favorites) === 'true') {
       const images = this.appService.getFavoriteImages();
 
       return images.map((image: string) => ({

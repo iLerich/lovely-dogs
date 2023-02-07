@@ -53,8 +53,8 @@ window.onload = function() {
       }
     },
     "info": {
-      "title": "Noala API",
-      "description": "Noala API description",
+      "title": "Lovely Dog API",
+      "description": "Lovely Dog",
       "version": "1.0",
       "contact": {}
     },
