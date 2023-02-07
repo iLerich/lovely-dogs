@@ -8,7 +8,10 @@ export type DogImageResponse = {
 
 @Injectable()
 export class AppService {
-  constructor(private httpService: HttpService) {}
+  private favoriteImages: Array<string>;
+  constructor(private httpService: HttpService) {
+    this.favoriteImages = [];
+  }
 
   async getRandomImages(): Promise<Array<DogImageResponse>> {
     const fetchImages = [];
@@ -21,5 +24,20 @@ export class AppService {
     }
 
     return Promise.all(fetchImages);
+  }
+
+  addFavoriteImages(image: string): Array<string> {
+    if (!this.favoriteImages.includes(image)) {
+      this.favoriteImages.push(image);
+    }
+    return this.favoriteImages;
+  }
+
+  isFavoriteImage(image: string): boolean {
+    return this.favoriteImages.includes(image);
+  }
+
+  getFavoriteImages(): Array<string> {
+    return this.favoriteImages;
   }
 }

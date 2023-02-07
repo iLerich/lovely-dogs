@@ -4,14 +4,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as session from 'express-session';
 import { AppModule } from './app.module';
 // core
-import { resolve } from 'path';
-import { writeFileSync, createWriteStream } from 'fs';
+import { createWriteStream } from 'fs';
 import { get } from 'http';
-
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-
   const config = new DocumentBuilder()
     .setTitle('Noala API')
     .setDescription('Noala API description')
@@ -58,7 +55,8 @@ async function bootstrap() {
         console.log(
           `Swagger UI standalone preset file written to: '/swagger-static/swagger-ui-standalone-preset.js'`,
         );
-      });
+      },
+    );
 
     get(`${serverUrl}/api/swagger-ui.css`, function (response) {
       response.pipe(createWriteStream('swagger-static/swagger-ui.css'));

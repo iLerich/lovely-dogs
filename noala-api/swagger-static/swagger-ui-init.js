@@ -14,7 +14,17 @@ window.onload = function() {
       "/": {
         "get": {
           "operationId": "AppController_getImages",
-          "parameters": [],
+          "parameters": [
+            {
+              "name": "favorites",
+              "required": true,
+              "in": "query",
+              "description": "Get images. when favorites query is true, it will return saved favorite images",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "description": ""
@@ -23,17 +33,17 @@ window.onload = function() {
         },
         "post": {
           "operationId": "AppController_addImageToFav",
-          "parameters": [
-            {
-              "name": "image",
-              "required": true,
-              "in": "query",
-              "description": "URL of the image to add to list",
-              "schema": {
-                "type": "string"
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddToFavQueryDto"
+                }
               }
             }
-          ],
+          },
           "responses": {
             "201": {
               "description": ""
@@ -51,7 +61,20 @@ window.onload = function() {
     "tags": [],
     "servers": [],
     "components": {
-      "schemas": {}
+      "schemas": {
+        "AddToFavQueryDto": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string",
+              "description": "Add image to favorites"
+            }
+          },
+          "required": [
+            "image"
+          ]
+        }
+      }
     }
   },
   "customOptions": {}

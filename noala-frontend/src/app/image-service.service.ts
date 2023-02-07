@@ -6,25 +6,29 @@ import { environment } from '../environments/environment';
 
 export type ImageData = {
   url: string;
-  addedToFav?: boolean
-}
+  addedToFav?: boolean;
+};
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ImageServiceService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getImages(): Observable<Array<ImageData>> {
-    return this.http.get<Array<ImageData>>(environment.apiURL)
+  getImages(isLoadingFavorites = false): Observable<Array<ImageData>> {
+    return this.http.get<Array<ImageData>>(
+      environment.apiURL,
+      {
+        params: {
+          favorites: isLoadingFavorites
+        },
+      }
+    );
   }
 
   addImageToFavourite(url: string) {
     return this.http.post(environment.apiURL, {
-      params: {
-        image: url
-      }
+      image: url,
     });
   }
 }

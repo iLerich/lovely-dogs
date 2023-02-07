@@ -1,13 +1,13 @@
-import { Component, HostBinding, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   trigger,
-  state,
   style,
   animate,
   transition,
 } from '@angular/animations';
 
 import { ImageData, ImageServiceService } from '../image-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -26,17 +26,26 @@ import { ImageData, ImageServiceService } from '../image-service.service';
     ])
   ]
 })
-export class ImageGalleryComponent implements OnDestroy {
+
+export class ImageGalleryComponent {
   images: Array<ImageData> = [];
   loading: boolean = true;
+  isLoadingFavorites: boolean = false;
 
-  constructor(private imageService: ImageServiceService) {
+  constructor(private imageService: ImageServiceService, private router: ActivatedRoute) {
+    router.queryParams.subscribe((params: Record<string, any>) => {
+      this.loadImages(params['favorite']);
+      this.isLoadingFavorites = params['favorite'];
+    });
+  }
+
+  ngOnInit() {
     this.loadImages();
   }
 
-  loadImages(): void {
+  loadImages(isLoadingFavorites = false): void {
     this.loading = true;
-    this.imageService.getImages().subscribe((data) => {
+    this.imageService.getImages(isLoadingFavorites).subscribe((data) => {
       this.images = data;
     })
   }
@@ -45,9 +54,5 @@ export class ImageGalleryComponent implements OnDestroy {
     this.imageService.addImageToFavourite(this.images[index].url).subscribe(() => {
       this.images[index].addedToFav = true;
     });
-  }
-
-  ngOnDestroy(): void {
-
   }
 }
