@@ -1,22 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-// import session from 'express-session';
-import * as session from 'express-session';
+import serverSession, * as localSession from 'express-session';
 import { AppModule } from './app.module';
-// core
 import { createWriteStream } from 'fs';
 import { get } from 'http';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   const config = new DocumentBuilder()
-    .setTitle('Noala API')
-    .setDescription('Noala API description')
+    .setTitle('Lovely Dog API')
+    .setDescription('Lovely Dog')
     .setVersion('1.0')
-    // .addTag('dogs')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
+  const session =
+    process.env.NODE_ENV === 'development' ? localSession : serverSession;
 
   app.use(
     session({
