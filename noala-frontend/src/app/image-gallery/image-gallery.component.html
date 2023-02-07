@@ -1,0 +1,20 @@
+<mat-grid-list cols="3" rowHeight="270px" gutterSize="20">
+    <mat-grid-tile @zoomInOut *ngFor="let image of images;let i = index">
+        <mat-card class="example-card" style="width:100%">
+            <!-- <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Shiba Inu</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header> -->
+            <img mat-card-image class="card-image" [src]="image.url" alt="Random Dog" height="200">
+            <mat-card-actions>
+                <button mat-button (click)="addToFav(i)" *ngIf="!image.addedToFav; else added">LIKE</button>
+                <ng-template #added><span>Added to Fav list</span></ng-template>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div style="margin-top: 50px;text-align: center;">
+    <button mat-button color="primary" (click)="loadImages()">Load</button>
+</div>
