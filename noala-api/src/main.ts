@@ -26,6 +26,7 @@ async function bootstrap() {
     }),
   );
 
+  app.enableCors();
   await app.listen(3000);
 
   // get the swagger json file (if app is running in development mode)
