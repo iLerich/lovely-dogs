@@ -6,7 +6,9 @@ import { createWriteStream } from 'fs';
 import { get } from 'http';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Lovely Dog API')
     .setDescription('Lovely Dog')
@@ -26,7 +28,6 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors();
   await app.listen(3000);
 
   // get the swagger json file (if app is running in development mode)
