@@ -33,10 +33,6 @@ export class ImageGalleryComponent {
     });
   }
 
-  ngOnInit() {
-    this.loadImages();
-  }
-
   loadImages(isLoadingFavorites = false): void {
     this.loading = true;
     this.imageService.getImages(isLoadingFavorites).subscribe((data) => {
