@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL: 'https://noala-api.vercel.app'
+    apiURL: 'https://lovely-dogs-api.vercel.app/'
 };
